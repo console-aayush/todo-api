@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
+import todosRouter from './routes/todos';
 import { db, todosTable } from "./db/db";
 
 const app = new Hono();
@@ -30,6 +31,9 @@ app.get("/", async (c) => {
     );
   }
 });
+
+//routes
+app.route('/todos', todosRouter);
 
 // Start server
 async function startServer() {

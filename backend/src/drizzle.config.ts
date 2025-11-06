@@ -1,17 +1,10 @@
-// src/drizzle.config.ts
-import { drizzle } from 'drizzle-orm';
-import postgres from 'postgres';
+import { defineConfig } from 'drizzle-kit'
 
-// Create Postgres client with a pool
-const sql = postgres({
-  host: 'localhost',
-  port: 5432,
-  username: 'your_user',
-  password: 'your_password',
-  database: 'your_db',
-  max: 10,         // max connections in pool
-  idle_timeout: 30 // seconds
-});
-
-// Export Drizzle instance
-export const db = drizzle(sql);
+export default defineConfig({
+  schema: './src/db/schema.ts',
+  out: './src/db/migrations',
+  dialect: 'postgresql',
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+})
