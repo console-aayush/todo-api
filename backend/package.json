@@ -1,12 +1,16 @@
 {
-  "name": "backend",
-  "module": "index.ts",
-  "type": "module",
+  "name": "todo-app",
   "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "start": "bun src/index.ts"
-  },
+    "dev": "bun run --cwd backend dev & bun run --cwd frontend dev",
+    "backend": "bun run --cwd backend dev",
+    "frontend": "bun run --cwd frontend dev"
+  }
+}
   "devDependencies": {
     "@types/bun": "latest",
     "drizzle-kit": "^0.31.6"

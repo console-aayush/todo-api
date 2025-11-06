@@ -14,3 +14,5 @@ export const db = drizzle(sql, { schema });
 
 // Export tables
 export const todosTable = schema.todos;
+
+
