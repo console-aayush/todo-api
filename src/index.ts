@@ -7,7 +7,7 @@ import { db, todosTable } from "./db/db";
 const app = new Hono();
 
 
-app.use("*", cors());
+app.use('*', cors({ origin: '*' }));
 
 // Health check route
 app.get("/", async (c) => {
