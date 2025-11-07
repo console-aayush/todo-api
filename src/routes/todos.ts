@@ -15,32 +15,33 @@ router.get('/', async (c) => {
   }
 });
 
-// GET single todo by ID
-router.get('/:id', async (c) => {
-  const id = Number(c.req.param('id'));
-  try {
-    const todo = await db.select().from(todosTable).where(eq(todosTable.id, id));
-    if (!todo || todo.length === 0) {
-      return c.json({ error: 'Todo not found' }, 404);
-    }
-    return c.json(todo[0]);
-  } catch (err) {
-    return c.json({ error: 'Failed to fetch todo', details: err }, 500);
-  }
-});
+// // GET single todo by ID
+// router.get('/:id', async (c) => {
+//   const id = Number(c.req.param('id'));
+//   try {
+//     const todo = await db.select().from(todosTable).where(eq(todosTable.id, id));
+//     if (!todo || todo.length === 0) {
+//       return c.json({ error: 'Todo not found' }, 404);
+//     }
+//     return c.json(todo[0]);
+//   } catch (err) {
+//     return c.json({ error: 'Failed to fetch todo', details: err }, 500);
+//   }
+// });
 
 // POST create new todo
 router.post('/', async (c) => {
   try {
     const body = await c.req.json();
+    console.log("data received",body);
     const result = await db
       .insert(todosTable)
       .values({
         title: body.title,
         completed: body.completed ?? false,
       })
-      .returning();
-    return c.json(result[0], 201);
+      console.log("result",result);
+    return c.json({message: 'ok'}, 201);
   } catch (err) {
     return c.json({ error: 'Failed to create todo', details: err }, 500);
   }
